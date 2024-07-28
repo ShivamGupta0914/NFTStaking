@@ -178,7 +178,9 @@ contract NFTStaking is
      * @custom:error UnboundingPeriodNotEnd is thrown if the unbounding period has not yet ended.
      * @custom:event NFTWithdrawn Emits when an NFT is successfully withdrawn.
      */
-    function withdrawNFT(uint256 _index) external indexWithinLength(_index) {
+    function withdrawNFT(
+        uint256 _index
+    ) external indexWithinLength(_index) nonReentrant {
         StakedNFTInfo memory info = stakers[msg.sender].nftsInfo[_index];
 
         uint256 unstakedBlock = info.unstakedAt;
